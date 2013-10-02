@@ -4539,5 +4539,7 @@
     <string name="regulatory_info_text"></string>
 
     <!-- Interface settings -->
+    <!-- Themes settings  -->
+    <string name="themes_settings_title">Themes</string>
 
 </resources>
