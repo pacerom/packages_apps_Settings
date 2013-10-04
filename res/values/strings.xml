@@ -582,6 +582,8 @@
     <string name="settings_shortcut">Settings shortcut</string>
     <!-- Wireless controls settings screen, setting check box label -->
     <string name="airplane_mode">Airplane mode</string>
+    <!-- Wireless controls settings screen, setting check box label -->
+    <string name="adfree">Adfree</string>
     <!-- Main Settings screen settings title for things like airplane mode, tethering, NFC, VPN.  This will take you to another screen with those settings. -->
     <string name="radio_controls_title">More\u2026</string>
     <!-- Wireless Settings screen title for things like Wi-Fi, bluetooth, airplane mode. -->

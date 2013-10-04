@@ -23,6 +23,11 @@
         android:persistent="false"
         android:disableDependentsState="true" />
 
+    <CheckBoxPreference
+        android:key="toggle_adfree"
+        android:title="@string/adfree"
+        android:persistent="false" />
+
     <PreferenceScreen
         android:fragment="com.android.settings.vpn2.VpnSettings"
         android:key="vpn_settings"
