@@ -66,6 +66,7 @@ public class WirelessSettings extends SettingsPreferenceFragment
     private static final String TAG = "WirelessSettings";
 
     private static final String KEY_TOGGLE_AIRPLANE = "toggle_airplane";
+    private static final String KEY_TOGGLE_ADFREE = "toggle_adfree";
     private static final String KEY_TOGGLE_NFC = "toggle_nfc";
     private static final String KEY_WIMAX_SETTINGS = "wimax_settings";
     private static final String KEY_ANDROID_BEAM_SETTINGS = "android_beam_settings";
@@ -83,6 +84,7 @@ public class WirelessSettings extends SettingsPreferenceFragment
 
     private AirplaneModeEnabler mAirplaneModeEnabler;
     private SwitchPreference mAirplaneModePreference;
+    private SwitchPreference mAdfreePreference;
     private NfcEnabler mNfcEnabler;
     private NfcAdapter mNfcAdapter;
     private NsdEnabler mNsdEnabler;
@@ -112,6 +114,9 @@ public class WirelessSettings extends SettingsPreferenceFragment
                 new Intent(TelephonyIntents.ACTION_SHOW_NOTICE_ECM_BLOCK_OTHERS, null),
                 REQUEST_CODE_EXIT_ECM);
             return true;
+        } else if (preference == mAdfreePreference) {
+            boolean value = mAdfreePreference.isChecked();
+            setAdfree(value);
         } else if (preference == findPreference(KEY_MANAGE_MOBILE_PLAN)) {
             onManageMobilePlanClick();
         }
@@ -120,6 +125,20 @@ public class WirelessSettings extends SettingsPreferenceFragment
     }
 
     private String mManageMobilePlanMessage;
+
+    private boolean isAdfree() {
+        String val = SystemProperties.get("persist.sys.hosts", "/system/etc/hosts");
+        return val.equals("/system/etc/hosts.adfree");
+    }
+
+    private void setAdfree(boolean value) {
+        String target = "/system/etc/hosts";
+        if (value) {
+            target = "/system/etc/hosts.adfree";
+        }
+        SystemProperties.set("persist.sys.hosts", target);
+    }
+
     public void onManageMobilePlanClick() {
         log("onManageMobilePlanClick:");
         mManageMobilePlanMessage = null;
@@ -265,6 +284,8 @@ public class WirelessSettings extends SettingsPreferenceFragment
 
         final Activity activity = getActivity();
         mAirplaneModePreference = (SwitchPreference) findPreference(KEY_TOGGLE_AIRPLANE);
+        mAdfreePreference = (SwitchPreference) findPreference(KEY_TOGGLE_ADFREE);
+        mAdfreePreference.setChecked(isAdfree());
         SwitchPreference nfc = (SwitchPreference) findPreference(KEY_TOGGLE_NFC);
         PreferenceScreen androidBeam = (PreferenceScreen) findPreference(KEY_ANDROID_BEAM_SETTINGS);
         CheckBoxPreference nsd = (CheckBoxPreference) findPreference(KEY_TOGGLE_NSD);
