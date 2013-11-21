@@ -23,6 +23,11 @@
         android:persistent="false"
         android:disableDependentsState="true" />
 
+    <CheckBoxPreference
+        android:key="toggle_adfree"
+        android:title="@string/adfree"
+        android:persistent="false" />
+
     <com.android.settings.SmsListPreference
         android:key="sms_application"
         android:title="@string/sms_application_title"

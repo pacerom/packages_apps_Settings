@@ -57,6 +57,7 @@ public class WirelessSettings extends RestrictedSettingsFragment
     private static final String TAG = "WirelessSettings";
 
     private static final String KEY_TOGGLE_AIRPLANE = "toggle_airplane";
+    private static final String KEY_TOGGLE_ADFREE = "toggle_adfree";
     private static final String KEY_TOGGLE_NFC = "toggle_nfc";
     private static final String KEY_WIMAX_SETTINGS = "wimax_settings";
     private static final String KEY_ANDROID_BEAM_SETTINGS = "android_beam_settings";
@@ -74,6 +75,7 @@ public class WirelessSettings extends RestrictedSettingsFragment
 
     private AirplaneModeEnabler mAirplaneModeEnabler;
     private CheckBoxPreference mAirplaneModePreference;
+    private CheckBoxPreference mAdfreePreference;
     private NfcEnabler mNfcEnabler;
     private NfcAdapter mNfcAdapter;
     private NsdEnabler mNsdEnabler;
@@ -107,6 +109,9 @@ public class WirelessSettings extends RestrictedSettingsFragment
                 new Intent(TelephonyIntents.ACTION_SHOW_NOTICE_ECM_BLOCK_OTHERS, null),
                 REQUEST_CODE_EXIT_ECM);
             return true;
+        } else if (preference == mAdfreePreference) {
+            boolean value = mAdfreePreference.isChecked();
+            setAdfree(value);
         } else if (preference == findPreference(KEY_MANAGE_MOBILE_PLAN)) {
             onManageMobilePlanClick();
         }
@@ -117,6 +122,20 @@ public class WirelessSettings extends RestrictedSettingsFragment
     private String mManageMobilePlanMessage;
     private static final String CONNECTED_TO_PROVISIONING_NETWORK_ACTION
             = "com.android.server.connectivityservice.CONNECTED_TO_PROVISIONING_NETWORK_ACTION";
+
+    private boolean isAdfree() {
+        String val = SystemProperties.get("persist.net.hosts", "/system/etc/hosts");
+        return val.equals("/system/etc/hosts.adfree");
+    }
+
+    private void setAdfree(boolean value) {
+        String target = "/system/etc/hosts";
+        if (value) {
+            target = "/system/etc/hosts.adfree";
+        }
+        Helpers.setSystemProp("persist.net.hosts", target);
+    }
+
     public void onManageMobilePlanClick() {
         log("onManageMobilePlanClick:");
         mManageMobilePlanMessage = null;
@@ -267,6 +286,8 @@ public class WirelessSettings extends RestrictedSettingsFragment
 
         final Activity activity = getActivity();
         mAirplaneModePreference = (CheckBoxPreference) findPreference(KEY_TOGGLE_AIRPLANE);
+        mAdfreePreference = (CheckBoxPreference) findPreference(KEY_TOGGLE_ADFREE);
+        mAdfreePreference.setChecked(isAdfree());
         CheckBoxPreference nfc = (CheckBoxPreference) findPreference(KEY_TOGGLE_NFC);
         PreferenceScreen androidBeam = (PreferenceScreen) findPreference(KEY_ANDROID_BEAM_SETTINGS);
         CheckBoxPreference nsd = (CheckBoxPreference) findPreference(KEY_TOGGLE_NSD);
