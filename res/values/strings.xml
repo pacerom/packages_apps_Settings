@@ -46,6 +46,8 @@
     <!-- Settings main menu category heading. Wireless and networks (Wi-Fi, Bluetooth, data usage...). [CHAR LIMIT=40] -->
     <string name="header_category_wireless_networks">WIRELESS &amp; NETWORKS</string>
     <!-- Settings main menu category heading. Device (Sound, display, battery, applications...). [CHAR LIMIT=40] -->
+    <!-- Settings main menu category heading. Interface [CHAR LIMIT=40] -->
+    <string name="header_category_interface">INTERFACE</string>
     <string name="header_category_device">DEVICE</string>
     <!-- Settings main menu category heading. Personal (Accounts, security, language, backup...). [CHAR LIMIT=40] -->
     <string name="header_category_personal">PERSONAL</string>
@@ -4943,4 +4945,7 @@ f anonymous statistics. -->
 
     <!-- Text to display in regulatory info screen (from device overlay). -->
     <string name="regulatory_info_text"></string>
+
+    <!-- Interface settings -->
+
 </resources>
