@@ -67,6 +67,7 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.MANAGE_DEVICE_ADMINS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application android:label="@string/settings_label"
             android:icon="@mipmap/ic_launcher_settings"
@@ -75,6 +76,8 @@
             android:hardwareAccelerated="true"
             android:requiredForAllUsers="true"
             android:supportsRtl="true">
+
+        <uses-library android:name="org.cyanogenmod.hardware" required="false" />
 
         <!-- Settings -->
 
@@ -1741,6 +1744,12 @@
         <receiver android:name=".users.ProfileUpdateReceiver">
             <intent-filter>
                 <action android:name="android.provider.Contacts.PROFILE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".BootReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 

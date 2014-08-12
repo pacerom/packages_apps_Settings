@@ -4,6 +4,8 @@ include $(CLEAR_VARS)
 LOCAL_JAVA_LIBRARIES := bouncycastle conscrypt telephony-common
 LOCAL_STATIC_JAVA_LIBRARIES := android-support-v4 android-support-v13 jsr305
 
+LOCAL_JAVA_LIBRARIES += org.cyanogenmod.hardware
+
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := \
