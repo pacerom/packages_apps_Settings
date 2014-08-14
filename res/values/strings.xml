@@ -1894,6 +1894,8 @@
     <string name="dialog_title_font_size">Font size</string>
     <!-- tap-to-wake -->
     <string name="double_tap_to_wake_title">Double-tap to wake</string>
+    <!-- tap-to-sleep -->
+    <string name="double_tap_to_sleep_title">Double-tap to sleep</string>
 
     <!-- SIM lock settings title -->
     <string name="sim_lock_settings">SIM card lock settings</string>

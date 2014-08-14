@@ -58,6 +58,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_LCD_DENSITY = "lcd_density";
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_TAP_TO_WAKE = "double_tap_wake_gesture";
+    private static final String KEY_TAP_TO_SLEEP = "double_tap_sleep_gesture";
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_SCREEN_SAVER = "screensaver";
 
@@ -74,6 +75,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private Preference mScreenSaverPreference;
 
     private CheckBoxPreference mTapToWake;
+    private CheckBoxPreference mTapToSleep;
 
     private final RotationPolicy.RotationPolicyListener mRotationPolicyListener =
             new RotationPolicy.RotationPolicyListener() {
@@ -144,6 +146,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             getPreferenceScreen().removePreference(mTapToWake);
             mTapToWake = null;
         }
+        mTapToSleep = (CheckBoxPreference) findPreference(KEY_TAP_TO_SLEEP);
+        final boolean currentTTS = Settings.System.getBoolean(resolver,
+                Settings.System.DOUBLE_TAP_SLEEP_GESTURE, false);
+        mTapToSleep.setChecked(currentTTS);
+        mTapToSleep.setOnPreferenceChangeListener(this);
     }
 
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
@@ -366,6 +373,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         }
         if (KEY_FONT_SIZE.equals(key)) {
             writeFontSizePreference(objValue);
+        }
+        if (KEY_TAP_TO_SLEEP.equals(key)) {
+            boolean value = (Boolean)objValue;
+            Settings.System.putBoolean(getContentResolver(),
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE, value);
         }
 
         return true;
