@@ -48,9 +48,7 @@
                 android:key="lcd_density"
                 android:title="@string/lcd_density"
                 android:summary="@string/lcd_density_summary"
-                android:persistent="false"
-                android:entries="@array/lcd_density_entries"
-                android:entryValues="@array/lcd_density_values" />
+                android:persistent="false" />
 
         <com.android.settings.WarnedListPreference
                 android:key="font_size"

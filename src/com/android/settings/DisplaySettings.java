@@ -118,7 +118,15 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         updateTimeoutPreferenceDescription(currentTimeout);
 
         mLcdDensityPreference = (ListPreference) findPreference(KEY_LCD_DENSITY);
+        int defaultDensity = DisplayMetrics.DENSITY_DEVICE;
+        String[] densityEntries = new String[8];
+        for (int idx = 0; idx < 8; ++idx) {
+            int pct = (75 + idx*5);
+            densityEntries[idx] = Integer.toString(defaultDensity * pct / 100);
+        }
         int currentDensity = DisplayMetrics.DENSITY_CURRENT;
+        mLcdDensityPreference.setEntries(densityEntries);
+        mLcdDensityPreference.setEntryValues(densityEntries);
         mLcdDensityPreference.setValue(String.valueOf(currentDensity));
         mLcdDensityPreference.setOnPreferenceChangeListener(this);
         updateLcdDensityPreferenceDescription(currentDensity);
